@@ -198,7 +198,6 @@ defmodule SpandexNewrelic.ApiServer do
 
   defp add_error_data(meta, %{error: error}) do
     meta
-    |> Map.put("error", true)
     |> add_error_message(error[:exception])
   end
 
@@ -206,7 +205,9 @@ defmodule SpandexNewrelic.ApiServer do
   defp add_error_message(meta, nil), do: meta
 
   defp add_error_message(meta, exception),
-    do: Map.put(meta, "error.message", Exception.message(exception))
+    do:
+      Map.put(meta, "error.message", Exception.message(exception))
+      |> Map.put("error", true)
 
   @spec add_http_data(map, Span.t()) :: map
   defp add_http_data(meta, %{http: nil}), do: meta
