@@ -2,7 +2,7 @@ defmodule SpandexNewrelic.ApiServer do
   use GenServer
   require Logger
 
-  @api_url Application.compile_env!(:spandex_newrelic, :api_url)
+  @api_url Application.fetch_env!(:spandex_newrelic, :api_url)
 
   @headers [
     {"Content-Type", "application/json"},
